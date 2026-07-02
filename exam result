@@ -1,0 +1,100 @@
+class Student:
+
+    def __init__(self, rollno, name, mark1, mark2, mark3):
+        self.rollno = rollno
+        self.name = name
+        self.mark1 = mark1
+        self.mark2 = mark2
+        self.mark3 = mark3
+        self.total = 0
+        self.average = 0
+
+    def calculate(self):
+        self.total = self.mark1 + self.mark2 + self.mark3
+        self.average = self.total / 3
+
+
+class ExamResult:
+
+    def __init__(self):
+        self.students = []
+
+    def add_student(self):
+        n = int(input("Enter Number of Students: "))
+
+        i = 0
+        while i < n:
+            print("\nEnter Student", i + 1, "Details")
+
+            roll = int(input("Roll No: "))
+            name = input("Name: ")
+            m1 = int(input("Mark 1: "))
+            m2 = int(input("Mark 2: "))
+            m3 = int(input("Mark 3: "))
+
+            s = Student(roll, name, m1, m2, m3)
+            s.calculate()
+
+            self.students.append(s)
+
+            i = i + 1
+
+    def display(self):
+        print("\n----------- RESULT -----------")
+        print("Roll\tName\tTotal\tAverage")
+
+        i = 0
+        while i < len(self.students):
+            s = self.students[i]
+            print(s.rollno, "\t", s.name, "\t", s.total, "\t", s.average)
+            i = i + 1
+
+    def class_average(self):
+        total_avg = 0
+
+        i = 0
+        while i < len(self.students):
+            total_avg = total_avg + self.students[i].average
+            i = i + 1
+
+        avg = total_avg / len(self.students)
+        print("\nClass Average =", avg)
+
+    def top_scorer(self):
+        top = self.students[0]
+
+        i = 1
+        while i < len(self.students):
+            if self.students[i].total > top.total:
+                top = self.students[i]
+            i = i + 1
+
+        print("\nTop Scorer")
+        print("Name :", top.name)
+        print("Roll :", top.rollno)
+        print("Total:", top.total)
+        print("Average:", top.average)
+
+    def low_scorer(self):
+        low = self.students[0]
+
+        i = 1
+        while i < len(self.students):
+            if self.students[i].total < low.total:
+                low = self.students[i]
+            i = i + 1
+
+        print("\nLowest Scorer")
+        print("Name :", low.name)
+        print("Roll :", low.rollno)
+        print("Total:", low.total)
+        print("Average:", low.average)
+
+
+obj = ExamResult()
+
+obj.add_student()
+obj.display()
+obj.class_average()
+obj.top_scorer()
+obj.low_scorer()
